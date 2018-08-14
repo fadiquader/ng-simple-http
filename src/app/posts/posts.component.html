@@ -8,12 +8,23 @@
   </div>
   <div *ngIf="!loading">
     <div class="row">
-      <div *ngFor="let post of posts" class="col-sm-4">
+      <div *ngFor="let post of posts; index as i" class="col-sm-4">
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">{{ post.title }}</h5>
             <p class="card-text">{{ post.body }}</p>
-            <a href="#" class="btn btn-primary">Go somewhere</a>
+            <div>
+              <button
+                class="btn btn-danger"
+                (click)="deletePost(post, i)">
+                Delete
+              </button>
+              <button
+                class="btn btn-info"
+                (click)="open(content, post)">
+                Update
+              </button>
+            </div>
           </div>
         </div>
         <br>
@@ -21,3 +32,29 @@
     </div>
   </div>
 </div>
+
+<ng-template #content let-c="close" let-d="dismiss">
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Post update</h4>
+    <button type="button" class="close" aria-label="Close" (click)="d('close')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <div>
+      <div class="form-group">
+        <input type="text" class="form-control" [(ngModel)]="selectedPost.title">
+      </div>
+      <div class="form-group">
+        <textarea type="text" class="form-control" [(ngModel)]="selectedPost.body"></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button"
+            class="btn btn-outline-dark"
+            (click)="c('update')">
+      Save
+    </button>
+  </div>
+</ng-template>

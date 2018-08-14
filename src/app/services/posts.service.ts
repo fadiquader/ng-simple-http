@@ -1,6 +1,6 @@
 import {Inject, Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {Observable, of} from 'rxjs';
+import {Observable, of, throwError} from 'rxjs';
 import {Post} from '../models/post';
 import {catchError, map} from 'rxjs/operators';
 
@@ -25,5 +25,15 @@ export class PostsService {
       }),
       catchError(err => of('error happened')),
     );
+  }
+
+  deletePost(id: number): Observable<any> {
+    return this.http.delete(`${this.apiURL}/posts/${id}`);
+  }
+  updatePost(post: Post) {
+    return this.http.put(`${this.apiURL}/posts/${post.id}`, post)
+      .pipe(
+        catchError(err => throwError(err))
+      );
   }
 }

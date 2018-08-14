@@ -1,10 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 import { AppComponent } from './app.component';
 import { PostsComponent } from './posts/posts.component';
 import {HttpClientModule} from '@angular/common/http';
 import { SearchBoxComponent } from './posts/search-box/search-box.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -14,7 +16,9 @@ import { SearchBoxComponent } from './posts/search-box/search-box.component';
   ],
   imports: [
     BrowserModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule,
+    NgbModule
   ],
   providers: [
     {
